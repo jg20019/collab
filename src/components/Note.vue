@@ -8,11 +8,9 @@ const state = reactive({
   left: 25,
   clientX: null,
   clientY: null, 
-  movementX: 0,
-  movementY: 0,
-  onmousemove: null,
-  onmouseup: null,
-  dragging: false
+  dX: 0,
+  dY: 0,
+  el: null,
 })
 
 
@@ -20,46 +18,41 @@ const position = computed(() => {
   return { top: `${state.top}px`, left: `${state.left}px` }
 })
 
-const handleDrag = (event) => {
+const dragNote = (event) => {
   event.preventDefault()
-  state.movementX = state.clientX - event.clientX
-  state.movementY = state.clientY - event.clientY
+  state.dX = state.clientX - event.clientX
+  state.dY = state.clientY - event.clientY
 
   state.clientX = event.clientX
   state.clientY = event.clientY
 
-  state.top = state.top - state.movementY
-  state.left = state.left - state.movementX
+  state.top = state.el.offsetTop - state.dY
+  state.left = state.el.offsetLeft - state.dX
 }
 
-const handleMouseUp = (event) => {
-  if (state.dragging) {
-    document.onmousemove = state.onmousemove
-    document.onmouseup   = state.onmouseup
-  }
+const releaseNote = (event) => {
+  document.onmousemove = state.onmousemove
+  document.onmouseup   = state.onmouseup
 }
 
-const handleMouseDown = (event) => {
+const grabNote = (event) => {
   event.preventDefault()
 
   state.clientX = event.clientX
   state.clientY = event.clientY
   state.dragging = true
-  
-  // Remember these so that we can reset them later
-  state.onmousemove = document.onmousemove
-  state.onmouseup = document.onmouseup
-
-  document.onmousemove = handleDrag
-  document.onmouesup = handleMouseUp
+ 
+  state.el = event.currentTarget
+  document.onmousemove = dragNote
+  document.onmouesup = releaseNote
 }
 </script>
 
 <template>
   <div
     class="note-container" 
-    @mousedown="handleMouseUp"
-    @mouseup="handleMouseDown"
+    @mousedown="grabNote"
+    @mouseup="releaseNote"
     :style="position">
     <textarea
       v-model="state.contents"
@@ -72,10 +65,10 @@ const handleMouseDown = (event) => {
 
 <style>
     div.note-container {
-      border: 10px solid lightgreen;
       display: inline-block;
       position: absolute;
       border-radius: 5px;
+      border: 10px solid lightgreen;
     }
 
     div.note-container:hover {
@@ -83,11 +76,12 @@ const handleMouseDown = (event) => {
     }
 
     textarea {
-      width: 100%;
-      height: 100%;
+      width: 95%;
+      height: 95%;
       padding: 5px;
       outline: none;
       border: none;
+      z-index: 100;
     }
 
     textarea:focus {
