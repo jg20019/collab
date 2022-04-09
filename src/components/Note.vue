@@ -36,8 +36,6 @@ const releaseNote = (event) => {
 }
 
 const grabNote = (event) => {
-  event.preventDefault()
-
   state.clientX = event.clientX
   state.clientY = event.clientY
   state.dragging = true

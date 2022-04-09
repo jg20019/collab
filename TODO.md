@@ -6,8 +6,10 @@
   * Position notes by top and left state variables [x]
   * Need to find a way to set style top and left. Was trying to 
     do it using :style but that was based on vue2 [x]
-  * Put textareas in a draggable div (?)
-  * Return the ability to edit notes
+  * Put textareas in a draggable div (?) [x]
+  * Return the ability to edit notes [x]
+  * Make a certain part of the div draggable instead of making the whole 
+    div draggable. We still want to be able to resize textareas
 * Create a context menu component 
 * Remove save button
 * Create a Desktop component (represents all empty space)
