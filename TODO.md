@@ -10,8 +10,11 @@
   * Return the ability to edit notes [x]
   * Make a certain part of the div draggable instead of making the whole 
     div draggable. We still want to be able to resize textareas
-* Create a context menu component 
-* Remove save button
+* Remove save button [x]
+* Create a context menu component [ ]
+  * Make the menu show when clicking on the desktop  [ ] 
+  * Make the menu hide when clicking the close button [ ] 
+
 * Create a Desktop component (represents all empty space)
 
 ## UI
