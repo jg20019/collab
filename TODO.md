@@ -12,7 +12,7 @@
     div draggable. We still want to be able to resize textareas
 * Remove save button [x]
 * Create a context menu component [ ]
-  * Make the menu show when clicking on the desktop  [ ] 
+  * Make the menu show when clicking on the desktop  [x] 
   * Make the menu hide when clicking the close button [ ] 
 
 * Create a Desktop component (represents all empty space)
