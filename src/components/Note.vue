@@ -1,18 +1,21 @@
 <script setup>
-
 import { reactive, computed } from 'vue'
+
+const props = defineProps({
+  x: Number,
+  y: Number
+})
 
 const state = reactive({
   contents: 'Happy Hacking!',
-  top:  25,
-  left: 25,
+  top:  props.y,
+  left: props.x,
   clientX: null,
   clientY: null, 
   dX: 0,
   dY: 0,
   el: null,
 })
-
 
 const position = computed(() => {
   return { top: `${state.top}px`, left: `${state.left}px` }

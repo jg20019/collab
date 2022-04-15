@@ -1,7 +1,8 @@
 <script setup>
 
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 
+const emit = defineEmits(['closeMenu', 'addNote'])
 const props = defineProps(['top', 'left'])
 
 const styleObject = computed(() => {
@@ -11,14 +12,20 @@ const styleObject = computed(() => {
   }
 });
 
+
+const emitAddNote = (e) => {
+  emit('addNote', {x: e.clientX, y: e.clientY})
+}
+
+
 </script>
 
 <template>
   <div 
     class="menu-container"
     :style="styleObject">
-    <button> close </button>
-    <button> add note </button>
+    <button @click.prevent="emit('closeMenu')"> close </button>
+    <button @click="emitAddNote"> add note </button>
     <button> save </button>
   </div>
 </template>

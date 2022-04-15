@@ -9,26 +9,38 @@ const state = reactive({
     top: 200,
     left: 250,
     isVisible: false
-  }
+  },
+  notes: [
+    {x: 25, y: 25}
+  ]
 })
-
 
 const menuTop  = computed(() => state.menu.top)
 const menuLeft = computed(() => state.menu.left)
 const menuIsVisible = computed(() => state.menu.isVisible)
 
 const showContextMenu = (e) => {
-  state.menu.top  = e.clientY;
-  state.menu.left = e.clientX;
-  state.menu.isVisible = !state.menu.isVisible;
+  state.menu.top  = e.clientY
+  state.menu.left = e.clientX
+  state.menu.isVisible = true
 };
+
+const addNote = ({x, y}) => {
+  state.notes.push({x, y})
+}
+const closeMenu = () => {
+  state.menu.isVisible = false
+}
 
 </script>
 
 <template>
   <div class="background" @click="showContextMenu">
-    <Note />
-    <Menu v-if="menuIsVisible" :top="menuTop" :left="menuLeft"/>
+    <Note v-for="({x, y}) in state.notes" :x="x" :y="y" />
+    <Menu
+      @addNote="addNote"
+      @closeMenu="closeMenu"
+      v-if="menuIsVisible" :top="menuTop" :left="menuLeft"/>
   </div>
 </template>
 
