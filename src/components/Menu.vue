@@ -14,7 +14,14 @@ const styleObject = computed(() => {
 
 
 const emitAddNote = (e) => {
+  e.stopPropagation()
+  emit('closeMenu')
   emit('addNote', {x: e.clientX, y: e.clientY})
+}
+
+const emitCloseNote = (e) => {
+  e.stopPropagation()
+  emit('closeMenu')
 }
 
 
@@ -24,7 +31,7 @@ const emitAddNote = (e) => {
   <div 
     class="menu-container"
     :style="styleObject">
-    <button @click.prevent="emit('closeMenu')"> close </button>
+    <button @click="emitCloseNote"> close </button>
     <button @click="emitAddNote"> add note </button>
     <button> save </button>
   </div>
