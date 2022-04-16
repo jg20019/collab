@@ -57,6 +57,7 @@ const grabNote = (event) => {
     :style="position">
     <textarea
       v-model="state.contents"
+      @click="(e) => e.stopPropagation()"
       spellcheck=false
       rows="10" 
       >
